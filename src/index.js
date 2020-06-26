@@ -1,14 +1,24 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import I18n from "redux-i18n";
+import { PersistGate } from "redux-persist/integration/react";
+
+import * as serviceWorker from "./serviceWorker";
+import App from "./containers/App";
+
+import { store, persistor } from "./store/CombinedReducers";
+import { translations } from "./translations/Translation";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  <Provider store={store}>
+    <I18n translations={translations} >
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
+    </I18n>
+  </Provider>,
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
